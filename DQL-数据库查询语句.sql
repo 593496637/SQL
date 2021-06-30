@@ -30,9 +30,15 @@ SELECT * FROM `products` WHERE price >= 181 AND price < 475;
 # 包含前后
 SELECT * FROM `products` WHERE price BETWEEN 181 AND 475;
 
-SELECT * FROM `products` WHERE price < 181 || title = '华为';
+SELECT * FROM `products` WHERE price < 500 || title = '华为';
 
 SELECT * FROM `products` WHERE title like '%布%';
+
+# 将某些值设置为null
+-- UPDATE `products` SET url = NULL WHERE id >= 85 and id <= 88;
+
+# 查询某个值为null
+SELECT * FROM `products` WHERE url IS NULL;
 
 
 
