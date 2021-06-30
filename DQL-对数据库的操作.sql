@@ -33,12 +33,21 @@ SELECT * FROM `products` WHERE price BETWEEN 181 AND 475;
 SELECT * FROM `products` WHERE price < 500 || title = '华为';
 
 SELECT * FROM `products` WHERE title like '%布%';
+# 第二个字符包含 孩 的
+SELECT * FROM `products` WHERE title like '_孩%';
 
+# 查询包含多个条件  +  排序 asc:升序，DESC：降序
+SELECT * FROM `products` WHERE title IN ('华为','小米','苹果') ORDER BY price ASC,score DESC;
+ 
 # 将某些值设置为null
 -- UPDATE `products` SET url = NULL WHERE id >= 85 and id <= 88;
 
 # 查询某个值为null
 SELECT * FROM `products` WHERE url IS NULL;
+
+
+
+
 
 
 
