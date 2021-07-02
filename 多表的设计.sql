@@ -16,4 +16,7 @@ INSERT INTO `brand` (name,websit,phoneRank) VALUES ('摩托罗拉','www.moto.com
 
 
 # 添加brand_id 字段
-ALTER TABLE `products` ADD FOREIGN KEY 
+ALTER TABLE `products` ADD `brand_id` INT;
+ALTER TABLE `products` CONSTRAINT brand_id ADD FOREIGN KEY(brand_id) REFERENCES brand(id);
+
+ALTER TABLE `products` DROP FOREIGN KEY products_ibfk_1;
