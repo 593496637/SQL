@@ -45,6 +45,16 @@ SELECT * FROM `products` WHERE title IN ('华为','小米','苹果') ORDER BY pr
 # 查询某个值为null
 SELECT * FROM `products` WHERE url IS NULL;
 
+# 分页查询
+# LIMIT limit OFFSET offset
+SELECT * FROM `products` LIMIT 10 OFFSET 0;
+SELECT * FROM `products` LIMIT 10 OFFSET 10;
+
+# LIMIT offset,limit
+SELECT * FROM `products` LIMIT 0,10;
+SELECT * FROM `products` LIMIT 10,10;
+
+
 
 
 
