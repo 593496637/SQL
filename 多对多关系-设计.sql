@@ -24,7 +24,7 @@ INSERT INTO `courses` (name,price) VALUES ('英语',200);
 INSERT INTO `courses` (name,price) VALUES ('历史',300);
 
 # 3.建立关系表
-CREATE TABLE IF NOT EXISTS `students_select_coures`(
+CREATE TABLE IF NOT EXISTS `students_select_courses`(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	student_id INT NOT NULL,
 	course_id INT NULL,
@@ -33,42 +33,42 @@ CREATE TABLE IF NOT EXISTS `students_select_coures`(
 )
 
 # 4.学生选择课程
-INSERT INTO students_select_coures (student_id,course_id) VALUES (1,5);
-INSERT INTO students_select_coures (student_id,course_id) VALUES (1,6);
-INSERT INTO students_select_coures (student_id,course_id) VALUES (2,6);
-INSERT INTO students_select_coures (student_id,course_id) VALUES (3,7);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (1,5);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (1,6);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (2,6);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (3,7);
 
 # 4.1查询所有学生选择的课程
 SELECT stu.id id,stu.name stuName,stu.age stuAge, cs.id csId,cs.name csName,cs.price csPrice
 FROM `students` stu
-JOIN `students_select_coures` ssc ON stu.id = ssc.student_id
+JOIN `students_select_courses` ssc ON stu.id = ssc.student_id
 JOIN `courses` cs ON ssc.course_id = cs.id
 ORDER BY id;
 
 # 4.2查询所有学生的选课情况
 SELECT stu.id id,stu.name stuName,stu.age stuAge, cs.id csId,cs.name csName,cs.price csPrice
 FROM `students` stu
-LEFT JOIN `students_select_coures` ssc ON stu.id = ssc.student_id
+LEFT JOIN `students_select_courses` ssc ON stu.id = ssc.student_id
 LEFT JOIN `courses` cs
 ON ssc.course_id = cs.id
 
 # 4.3 查询没有选课的学生
 SELECT stu.id id,stu.name stuName,stu.age stuAge, cs.id csId,cs.name csName,cs.price csPrice
 FROM `students` stu
-LEFT JOIN `students_select_coures` ssc ON stu.id = ssc.student_id
+LEFT JOIN `students_select_courses` ssc ON stu.id = ssc.student_id
 LEFT JOIN `courses` cs ON ssc.course_id = cs.id
 WHERE cs.id IS NULL;
 
 # 4.4查询没有被选择的课程
 SELECT stu.id id,stu.name stuName,stu.age stuAge, cs.id csId,cs.name csName,cs.price csPrice
 FROM `students` stu
-RIGHT JOIN `students_select_coures` ssc ON stu.id = ssc.student_id
+RIGHT JOIN `students_select_courses` ssc ON stu.id = ssc.student_id
 RIGHT JOIN `courses` cs ON ssc.course_id = cs.id
 WHERE stu.id IS NULL;
 
 # 4.5查询某个学生选择的所有课程
 SELECT stu.id id,stu.name stuName,stu.age stuAge, cs.id csId,cs.name csName,cs.price csPrice
 FROM `students` stu
-LEFT JOIN `students_select_coures` ssc ON stu.id = ssc.student_id
+LEFT JOIN `students_select_courses` ssc ON stu.id = ssc.student_id
 LEFT JOIN `courses` cs ON ssc.course_id = cs.id
 WHERE stu.id=1;
