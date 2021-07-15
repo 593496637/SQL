@@ -6,4 +6,6 @@ CREATE TABLE IF NOT EXISTS `users`(
 	updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (name,password) VALUES (?,?)
+INSERT INTO users (name,password) VALUES (?,?);
+
+SELECT	* FROM users WHERE name=?;
