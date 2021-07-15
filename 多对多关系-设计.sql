@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS `students_select_courses`(
 )
 
 # 4.学生选择课程
-INSERT INTO students_select_courses (student_id,course_id) VALUES (1,5);
-INSERT INTO students_select_courses (student_id,course_id) VALUES (1,6);
-INSERT INTO students_select_courses (student_id,course_id) VALUES (2,6);
-INSERT INTO students_select_courses (student_id,course_id) VALUES (3,7);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (1,2);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (1,3);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (2,4);
+INSERT INTO students_select_courses (student_id,course_id) VALUES (3,1);
 
 # 4.1查询所有学生选择的课程
 SELECT stu.id id,stu.name stuName,stu.age stuAge, cs.id csId,cs.name csName,cs.price csPrice
