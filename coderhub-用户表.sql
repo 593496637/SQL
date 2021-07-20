@@ -37,5 +37,7 @@ SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 	LEFT JOIN user u ON m.user_id = u.id
 	LIMIT ?,?;
 	
+SELECT * FROM moment WHERE id=? AND user_id=?	
 	
+UPDATE moment SET content = ? WHERE id = ?;
 	
