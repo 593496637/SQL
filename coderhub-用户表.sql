@@ -64,4 +64,4 @@ SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 	(SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount
 	FROM moment m
 	LEFT JOIN user u ON m.user_id = u.id
-	LIMIT 0,10;
+	LIMIT 0,20;
