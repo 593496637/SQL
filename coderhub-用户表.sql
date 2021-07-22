@@ -65,3 +65,48 @@ SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 	FROM moment m
 	LEFT JOIN user u ON m.user_id = u.id
 	LIMIT 0,20;
+
+
+# 获取动态列表（包含评论/用户信息）
+SELECT 
+	m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
+	JSON_OBJECT('id',u.id,'name',u.name) author,
+	JSON_ARRAYAGG(
+		JSON_OBJECT('id',c.id,'content',c.content,'commentId',c.comment_id,'createTime',c.createAt,
+							  'user',JSON_OBJECT('id',cu.id,'name',cu.name))
+		) comments
+FROM moment m
+LEFT JOIN user u ON m.user_id = u.id  
+LEFT JOIN comment c ON c.moment_id = m.id
+LEFT JOIN user cu ON c.user_id = cu.id
+WHERE m.id = 7
+
+
+SELECT 
+	c.id id,c.content,content,c.comment_id conmmentId,c.createAt createTime,
+	JSON_OBJECT('id',u.id,'name',u.name) user
+FROM comment c
+LEFT JOIN user u ON u.id = c.user_id
+WHERE c.moment_id = 4;
+
+
+# 标签label
+CREATE TABLE IF NOT EXISTS label(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL UNIQUE,
+	createAT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)
+# label_comment 中间表
+CREATE TABLE IF NOT EXISTS moment_label(
+	moment_id INT NOT NULL,
+	label_id INT NOT NULL,
+	createAT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY(moment_id,label_id),
+	FOREIGN KEY(moment_id) REFERENCES moment(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN key(label_id) REFERENCES label(id) ON DELETE CASCADE ON UPDATE CASCADE
+)
+
+
+

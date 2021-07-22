@@ -7,7 +7,7 @@ LEFT JOIN `brand` ON products.brand_id = brand.id;
 
 # 查询所有学生的选课情况
 SELECT stu.id id,stu.name,stu.age,
-	JSON_ARRAYAGG(JSON_OBJECT('id',cs.id,'name',cs.name,'price',cs.price))
+	JSON_ARRAYAGG(JSON_OBJECT('id',cs.id,'name',cs.name,'price',cs.price)) array
 FROM `students` stu
 JOIN `students_select_courses` ssc ON stu.id = ssc.student_id
 JOIN `courses` cs ON ssc.course_id = cs.id
