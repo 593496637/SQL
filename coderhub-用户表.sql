@@ -108,5 +108,5 @@ CREATE TABLE IF NOT EXISTS moment_label(
 	FOREIGN key(label_id) REFERENCES label(id) ON DELETE CASCADE ON UPDATE CASCADE
 )
 
-
+INSERT information_schema
 
