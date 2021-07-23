@@ -61,10 +61,11 @@ INSERT INTO comment(moment_id,content,user_id) VALUES (?,?,?);
 
 SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 	JSON_OBJECT('id',u.id,'name',u.name) user,
-	(SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount
+	(SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount,
+	(SELECT COUNT(*) FROM moment_label ml WHERE ml.moment_id = m.id) labelCount
 	FROM moment m
 	LEFT JOIN user u ON m.user_id = u.id
-	LIMIT 0,20;
+	LIMIT 0,30;
 
 
 # 获取动态列表（包含评论/用户信息）
@@ -113,3 +114,5 @@ INSERT INTO label(name) VALUES (' C#');
 INSERT INTO label(name) VALUES (' python');
 INSERT INTO label(name) VALUES (' html');
 
+
+SELECT * FROM label LIMIT 0,10;
