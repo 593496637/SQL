@@ -71,10 +71,10 @@ SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 # 获取动态列表（包含评论/用户信息）
 SELECT 
 	m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
-	JSON_OBJECT('id',u.id,'name',u.name) author,
+	JSON_OBJECT('id',u.id,'name',u.name,'avatarUrl',u.avatar_url) author,
 	JSON_ARRAYAGG(
 		JSON_OBJECT('id',c.id,'content',c.content,'commentId',c.comment_id,'createTime',c.createAt,
-							  'user',JSON_OBJECT('id',cu.id,'name',cu.name))
+							  'user',JSON_OBJECT('id',cu.id,'name',cu.name,'avatarUrl',u.avatar_url))
 		) comments
 FROM moment m
 LEFT JOIN user u ON m.user_id = u.id  
@@ -116,3 +116,34 @@ INSERT INTO label(name) VALUES (' html');
 
 
 SELECT * FROM label LIMIT 0,10;
+
+
+
+-- 文件上传
+CREATE TABLE IF NOT EXISTS avatar(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	filename VARCHAR(255) NOT NULL UNIQUE,
+	mimetype VARCHAR(30),
+	size INT,
+	user_id INT,
+	createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
+)
+
+
+ALTER TABLE `user` ADD avatar_url VARCHAR(200)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
