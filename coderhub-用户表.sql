@@ -71,13 +71,6 @@ SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 # 获取动态列表（包含评论/用户信息）
 SELECT 
 	m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
-<<<<<<< HEAD
-	JSON_OBJECT('id',u.id,'name',u.name,'avatarUrl',u.avatar_url) author,
-	JSON_ARRAYAGG(
-		JSON_OBJECT('id',c.id,'content',c.content,'commentId',c.comment_id,'createTime',c.createAt,
-							  'user',JSON_OBJECT('id',cu.id,'name',cu.name,'avatarUrl',u.avatar_url))
-		) comments
-=======
 	IF(COUNT(u.id),JSON_OBJECT('id',u.id,'name',u.name),JSON_ARRAY()) author,
 	IF(COUNT(l.id),JSON_ARRAYAGG(JSON_OBJECT('id',l.id,'name',l.name,'time',DATE_FORMAT(l.createAT,'%Y-%c-%d %H:%i:%s'))) ,JSON_ARRAY()) labels,
 	(SELECT IF(COUNT(c.id),JSON_ARRAYAGG(
@@ -86,7 +79,6 @@ SELECT
 		),JSON_ARRAY()) FROM comment c
 										LEFT JOIN user cu ON c.user_id = cu.id
 										WHERE m.id = c.moment_id) comments
->>>>>>> 9466412 (lkk)
 FROM moment m
 LEFT JOIN user u ON m.user_id = u.id  
 
@@ -127,7 +119,6 @@ INSERT INTO label(name) VALUES (' C#');
 INSERT INTO label(name) VALUES (' python');
 INSERT INTO label(name) VALUES (' html');
 
-<<<<<<< HEAD
 
 SELECT * FROM label LIMIT 0,10;
 
@@ -148,19 +139,5 @@ CREATE TABLE IF NOT EXISTS avatar(
 
 ALTER TABLE `user` ADD avatar_url VARCHAR(200)
 
-
-
-
-
-
-
-
-
-
-
-
-
-=======
 SELECT * FROM label;
->>>>>>> 9466412 (lkk)
 
