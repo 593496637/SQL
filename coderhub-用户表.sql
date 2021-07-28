@@ -61,10 +61,11 @@ INSERT INTO comment(moment_id,content,user_id) VALUES (?,?,?);
 
 SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 	JSON_OBJECT('id',u.id,'name',u.name) user,
-	(SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount
+	(SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount,
+	(SELECT COUNT(*) FROM moment_label ml WHERE ml.moment_id = m.id) labelCount
 	FROM moment m
 	LEFT JOIN user u ON m.user_id = u.id
-	LIMIT 0,20;
+	LIMIT 0,30;
 
 
 # 获取动态列表（包含评论/用户信息）
@@ -118,5 +119,26 @@ INSERT INTO label(name) VALUES (' C#');
 INSERT INTO label(name) VALUES (' python');
 INSERT INTO label(name) VALUES (' html');
 
+
+SELECT * FROM label LIMIT 0,10;
+
+
+
+-- 文件上传
+CREATE TABLE IF NOT EXISTS avatar(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	filename VARCHAR(255) NOT NULL UNIQUE,
+	mimetype VARCHAR(30),
+	size INT,
+	user_id INT,
+	createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE
+)
+
+
+ALTER TABLE `user` ADD avatar_url VARCHAR(200)
+
+>>>>>>> temp
 SELECT * FROM label;
 
