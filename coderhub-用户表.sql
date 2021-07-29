@@ -62,7 +62,8 @@ INSERT INTO comment(moment_id,content,user_id) VALUES (?,?,?);
 SELECT m.id id,m.content content,m.createAt createTime,m.updateAt updateTime,
 	JSON_OBJECT('id',u.id,'name',u.name) user,
 	(SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id) commentCount,
-	(SELECT COUNT(*) FROM moment_label ml WHERE ml.moment_id = m.id) labelCount
+	(SELECT COUNT(*) FROM moment_label ml WHERE ml.moment_id = m.id) labelCount,
+	(SELECT )
 	FROM moment m
 	LEFT JOIN user u ON m.user_id = u.id
 	LIMIT 0,30;
@@ -78,13 +79,14 @@ SELECT
 							  'user',JSON_OBJECT('id',cu.id,'name',cu.name))
 		),JSON_ARRAY()) FROM comment c
 										LEFT JOIN user cu ON c.user_id = cu.id
-										WHERE m.id = c.moment_id) comments
+										WHERE m.id = c.moment_id) comments,
+	(SELECT JSON_ARRAYAGG(CONCAT('http://localhost:8000/moment/images/',file.filename)) FROM file WHERE m.id = file.moment_id) images
 FROM moment m
 LEFT JOIN user u ON m.user_id = u.id  
 
 LEFT JOIN moment_label ml ON m.id = ml.moment_id
 LEFT JOIN label l ON l.id = ml.label_id
-WHERE m.id = 4
+WHERE m.id = 28
 GROUP BY m.id;
 
 
